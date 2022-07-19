@@ -12,7 +12,7 @@ public abstract class HrTestBase {
         //save baseurl inside this variable so that we dont need to type each http method.
         baseURI=ConfigurationReader.getProperty("ords.url");
 
-        //get ip address from configuraitons
+        //get ip address from configurations
         String dbUrl = ConfigurationReader.getProperty("ords.dbUrl");
         String dbUsername = "hr";
         String dbPassword = "hr";

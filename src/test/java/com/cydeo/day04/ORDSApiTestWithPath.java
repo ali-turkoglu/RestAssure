@@ -47,7 +47,51 @@ public class ORDSApiTestWithPath extends HrTestBase {
             System.out.println(each);
         }
 
+        // assert that all regions ids are equal to 2
+
+        List<Integer> allRegions=response.path("items.region_id");
+
+        for (Integer each : allRegions) {
+            System.out.println("each = " + each);
+            assertEquals(2,each);
+        }
+
+
     }
+
+    /*
+       Send a GET request to employees and get only employees who works as a IT_PROG
+    */
+    @DisplayName("GET request to employees in IT_PROG")
+    @Test
+    public void test2(){
+
+        Response response=given()
+                .and().queryParam("q","{\"job_id\":\"IT_PROG\"}")
+                .accept(ContentType.JSON)
+                .when().get("/employees");
+
+        assertEquals(200,response.statusCode());
+        assertEquals("application/json",response.contentType());
+        assertTrue(response.body().asString().contains("IT_PROG"));
+
+        //make sure we have only IT_PROG as a job_id
+
+        List<String> allJobs=response.path("items.job_id");
+        for (String each : allJobs) {
+            System.out.println("each = " + each);
+            assertEquals("IT_PROG",each);
+        }
+
+        // print each name of IT Programmers
+        List<String > allNameOfIT_Prog=response.path("items.first_name");
+        for (String eachname : allNameOfIT_Prog) {
+            System.out.println(eachname);
+        }
+
+
+    }
+
 
 
 }
